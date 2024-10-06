@@ -1,0 +1,19 @@
+theme_names:
+
+//clam: Um tema que oferece uma aparência simples e limpa.
+
+//alt: Um tema alternativo que muda a aparência de alguns widgets, proporcionando uma sensação diferente.
+
+//default: O tema padrão do tkinter. Dependendo do sistema operacional, pode ter uma aparência diferente.
+
+//classic: Um tema que imita a aparência clássica do tkinter, que pode parecer mais antigo, mas é familiar para muitos usuários.
+
+//vista: Um tema que tem uma aparência moderna e é normalmente usado em sistemas Windows.
+
+//xpnative: Um tema que adapta a aparência dos widgets ao estilo do Windows XP, mas pode não estar disponível em todas as plataformas.
+
+realif --> é utilizado para definir o estilo da borda de um widget
+
+Image.ANTIALIAS é um parâmetro usado no Pillow (PIL) que se refere a um método de suavização (ou antialiasing) aplicado durante operações de redimensionamento de imagens.
+
+Image.Tk  é utilizado para integrar imagens do Pillow com a biblioteca Tkinter, permitindo exibir imagens em interfaces gráficas.Converte imagens do Pillow em um formato que o Tkinter pode usar (PhotoImage).
