@@ -5,26 +5,33 @@ import matplotlib.pyplot as plt
 from PIL import Image, ImageTk
 from datetime import datetime, timedelta
 
+# Substitua pela sua API Key da Exchangerate-API
+API_KEY = '1d1a04c0ba4a1e6bda630c60'
+
 # Cores
 cor0 = '#ffffff'  # branca
 cor1 = '#000000'  # preta
 cor2 = '#1251a0'  # azul
 cor3 = '#62b468'  # verde
+cor_letras = '#ff5733'  # cor das letras (exemplo: laranja)
 
-# Função para obter taxas de câmbio atuais e históricas
+# Função para obter taxas de câmbio atuais
 def get_exchange_rate(base_currency, target_currency):
-    url = f"https://api.exchangeratesapi.io/latest?base={base_currency}"
+    url = f"https://v6.exchangerate-api.com/v6/{API_KEY}/pair/{base_currency}/{target_currency}"
     response = requests.get(url)
     data = response.json()
-    return data['rates'][target_currency]
+    return data['conversion_rate']
 
+# Função para obter taxas de câmbio históricas (últimos 7 dias)
 def get_historical_rates(base_currency, target_currency):
-    end_date = datetime.now()
-    start_date = end_date - timedelta(days=7)
-    url = f"https://api.exchangeratesapi.io/history?start_at={start_date.strftime('%Y-%m-%d')}&end_at={end_date.strftime('%Y-%m-%d')}&base={base_currency}&symbols={target_currency}"
-    response = requests.get(url)
-    data = response.json()
-    return data['rates']
+    historical_rates = {}
+    for i in range(7):
+        date = (datetime.now() - timedelta(days=i)).strftime('%Y-%m-%d')
+        url = f"https://v6.exchangerate-api.com/v6/{API_KEY}/history/{base_currency}/{target_currency}/{date}"
+        response = requests.get(url)
+        data = response.json()
+        historical_rates[date] = data['conversion_rate']
+    return historical_rates
 
 # Função para converter a moeda
 def convert_currency():
@@ -35,20 +42,20 @@ def convert_currency():
         
         rate = get_exchange_rate(base_currency, target_currency)
         converted_amount = amount * rate
-        label_result.config(text=f'{amount} {base_currency} = {converted_amount:.2f} {target_currency}')
+        label_result.config(text=f'{amount} {base_currency} = {converted_amount:.2f} {target_currency}', fg=cor_letras)
         
         # Exibe o gráfico da variação dos últimos 7 dias
         historical_rates = get_historical_rates(base_currency, target_currency)
         plot_exchange_rate(historical_rates, target_currency)
     except Exception as e:
-        label_result.config(text="Erro ao converter. Verifique os dados inseridos.")
+        label_result.config(text="Erro ao converter. Verifique os dados inseridos.", fg="red")
 
 # Função para plotar o gráfico da variação de câmbio
 def plot_exchange_rate(historical_rates, target_currency):
     dates = sorted(historical_rates.keys())
-    rates = [historical_rates[date][target_currency] for date in dates]
+    rates = [historical_rates[date] for date in dates]
     
-    plt.figure(figsize=(8,4))
+    plt.figure(figsize=(8, 4))
     plt.plot(dates, rates, marker='o')
     plt.title(f'Taxa de Câmbio nos Últimos 7 Dias: {target_currency}')
     plt.xlabel('Data')
@@ -84,19 +91,19 @@ nome_do_app = tk.Label(frame_de_cima, image=imagem, compound='left', text='Conve
 nome_do_app.place(x=0, y=0)
 
 # Componentes da interface (frame de baixo)
-label_amount = tk.Label(frame_de_baixo, text="Quantidade:", bg=cor0, fg=cor1, font=('Arial 12'))
+label_amount = tk.Label(frame_de_baixo, text="Quantidade:", bg=cor0, fg=cor_letras, font=('Arial 12'))
 label_amount.grid(column=0, row=0, padx=10, pady=10)
 
 entry_amount = tk.Entry(frame_de_baixo, font=('Arial 12'))
 entry_amount.grid(column=1, row=0, padx=10, pady=10)
 
-label_base_currency = tk.Label(frame_de_baixo, text="De:", bg=cor0, fg=cor1, font=('Arial 12'))
+label_base_currency = tk.Label(frame_de_baixo, text="De:", bg=cor0, fg=cor_letras, font=('Arial 12'))
 label_base_currency.grid(column=0, row=1, padx=10, pady=10)
 
 combo_base_currency = ttk.Combobox(frame_de_baixo, values=["USD", "BRL", "EUR"], font=('Arial 12'))
 combo_base_currency.grid(column=1, row=1, padx=10, pady=10)
 
-label_target_currency = tk.Label(frame_de_baixo, text="Para:", bg=cor0, fg=cor1, font=('Arial 12'))
+label_target_currency = tk.Label(frame_de_baixo, text="Para:", bg=cor0, fg=cor_letras, font=('Arial 12'))
 label_target_currency.grid(column=0, row=2, padx=10, pady=10)
 
 combo_target_currency = ttk.Combobox(frame_de_baixo, values=["USD", "BRL", "EUR"], font=('Arial 12'))
