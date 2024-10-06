@@ -6,4 +6,5 @@
 dist/
 build/
 # Ignore config
-config.py
+chave_api.py
+
