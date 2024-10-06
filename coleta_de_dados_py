@@ -1,0 +1,15 @@
+import requests
+from datetime import datetime, timedelta
+
+# Função para obter as taxas de câmbio históricas (últimos 7 dias)
+def get_historical_rates(base_currency, target_currency):
+    end_date = datetime.now()
+    start_date = end_date - timedelta(days=7)
+    url = f"https://api.exchangeratesapi.io/history?start_at={start_date.strftime('%Y-%m-%d')}&end_at={end_date.strftime('%Y-%m-%d')}&base={base_currency}&symbols={target_currency}"
+    
+    # Fazendo a requisição para a API
+    response = requests.get(url)
+    data = response.json()
+    
+    # Retornando as taxas de câmbio organizadas por data
+    return data['rates']
