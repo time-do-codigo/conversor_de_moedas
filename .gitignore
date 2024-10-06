@@ -7,3 +7,4 @@ dist/
 build/
 # Ignore config
 chave_api.py
+
