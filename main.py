@@ -16,13 +16,12 @@ def converter():
 
 	if moeda_de == 'USD':
 		simbolo = '$'
-		valor_equivalente = simbolo + f'{resultado:,.2f}'
 	elif moeda_para == 'EUR':
 		simbolo = '€'
-		valor_equivalente = simbolo + f'{resultado:,.2f}'
 	else:
 		simbolo = 'R$'
-		valor_equivalente = simbolo + f'{resultado:,.2f}'.replace(',', 'X').replace('.', ',').replace('X', '.')
+	
+	valor_equivalente = simbolo + f'{resultado:,.2f}'
  
 	resultado['text'] = valor_equivalente
 
