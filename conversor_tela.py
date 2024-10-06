@@ -38,7 +38,7 @@ moedas= ['USD','EUR','BRL']
 
 campo_de =  Label(frame_de_baixo,text='De',relief='flat',anchor=NW,font=('Arial 12 bold'),bg=cor0,fg=cor1)
 campo_de.place(x=70,y=110)
-combo_de =ttk.Combobox(frame_de_baixo,width=11,justify=CENTER,font=('Montserrat 12 bold'))
+combo_de=ttk.Combobox(frame_de_baixo,width=11,justify=CENTER,font=('Montserrat 12 bold'))
 combo_de.place(x=74,y=140)
 combo_de['values'] = (moedas)
 
