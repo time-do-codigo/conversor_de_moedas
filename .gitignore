@@ -1,0 +1,9 @@
+# Ignore arquivos de ambiente
+.venv
+# Ignore arquivos de log
+.log
+# Ignore builds
+dist/
+build/
+# Ignore config
+config.py
