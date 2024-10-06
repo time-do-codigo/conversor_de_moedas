@@ -17,3 +17,6 @@ realif --> é utilizado para definir o estilo da borda de um widget
 Image.ANTIALIAS é um parâmetro usado no Pillow (PIL) que se refere a um método de suavização (ou antialiasing) aplicado durante operações de redimensionamento de imagens.
 
 Image.Tk  é utilizado para integrar imagens do Pillow com a biblioteca Tkinter, permitindo exibir imagens em interfaces gráficas.Converte imagens do Pillow em um formato que o Tkinter pode usar (PhotoImage).
+
+Label (resultado): Mostra o valor convertido.
+Entry (valor): Permite ao usuário digitar o valor que deseja converter.
