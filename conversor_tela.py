@@ -25,9 +25,9 @@ frame_de_baixo = Frame(janela,width=400,height=325,bg=cor0,relief='flat')
 frame_de_baixo.grid(row=1,column=0,sticky=NSEW) #o widget vai se alinhar aos quatro lados da célula da grade
 
 #Configuração do frame de cima
-icone= Image.open('imagens/icone_dinheiro_branca.png')
-icone= ImageTk.PhotoImage(icone) # Convertendo a imagem para um formato que o Tkinter pode usar
-nome_do_app = Label(frame_de_cima,image=icone,compound=LEFT,text='Conversor de moedas',height=6,pady=31,padx= 41,relief='flat',anchor=CENTER,font=('Arial 16 bold'),bg=cor2,fg=cor0)
+imagem= Image.open('imagens/imagem_dinheiro_branca.png')
+imagem= ImageTk.PhotoImage(imagem) # Convertendo a imagem para um formato que o Tkinter pode usar
+nome_do_app = Label(frame_de_cima,image=imagem,compound=LEFT,text='Conversor de moedas',height=6,pady=31,padx= 41,relief='flat',anchor=CENTER,font=('Arial 16 bold'),bg=cor2,fg=cor0)
 nome_do_app.place(x=0,y=0)
 
 #Configuração do frame de baixo
