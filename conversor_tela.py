@@ -1,6 +1,9 @@
 from tkinter import *
 from tkinter import ttk
 from PIL import Image,ImageTk,ImageOps,ImageDraw
+import requests
+import json
+from chave_api import API_KEY
 
 cor0 = '#ffffff' #branca
 cor1 = '#000000' #preta
@@ -31,7 +34,7 @@ nome_do_app = Label(frame_de_cima,image=imagem,compound=LEFT,text='Conversor de 
 nome_do_app.place(x=0,y=0)
 
 #Configuração do frame de baixo
-resultado = Label(frame_de_baixo,text='',height=2,pady=10,width=26,relief='solid',anchor=CENTER,font=('Montserrat 12 bold'),bg=cor0,fg=cor1)
+resultado = Label(frame_de_baixo,text='',height=2,pady=10,width=20,relief='solid',anchor=CENTER,font=('Montserrat 16 bold'),bg=cor0,fg=cor1)
 resultado.place(x=70,y=15)
 
 moedas= ['USD','EUR','BRL']
@@ -48,10 +51,34 @@ combo_para =ttk.Combobox(frame_de_baixo,width=11,justify=CENTER,font=('Montserra
 combo_para.place(x=214,y=140)
 combo_para['values'] = (moedas)
 
+def converter():
+	moeda_de = combo_de.get()
+	moeda_para = combo_para.get()
+	valor_converter = valor.get()
+
+	resposta =  requests.get(f'https://v6.exchangerate-api.com/v6/{API_KEY}/pair/{moeda_de}/{moeda_para}')
+	dados = json.loads(resposta.text)
+	cambio = dados['conversion_rate']
+	valor_equivalente = float(valor_converter) * float(cambio)
+
+	if moeda_para == 'USD':
+		simbolo = '$'
+		valor_equivalente_formatado = simbolo + f'{valor_equivalente:,.2f}'
+	elif moeda_para == 'EUR':
+		simbolo = '€'
+		valor_equivalente_formatado = simbolo + f'{valor_equivalente:,.2f}'
+	else:
+		simbolo = 'R$'
+		valor_equivalente_formatado = simbolo + f'{valor_equivalente:,.2f}'.replace(',', 'X').replace('.', ',').replace('X', '.')
+		
+ 
+	resultado['text'] = valor_equivalente_formatado
+
+
 valor= Entry(frame_de_baixo,width=29,relief='solid',justify=CENTER,font=('Montserrat 12 bold'),bg=cor0,fg=cor1)
 valor.place(x=70,y=190,height=30)
 
-bnt_converter = Button(frame_de_baixo,command= '',text='Converter',relief='raised',overrelief='raised',width=11,padx=5,height=1,font=('Arial 12 bold'),bg=cor2,fg=cor0,activebackground=cor2,activeforeground=cor0)
+bnt_converter = Button(frame_de_baixo,command= converter,text='Converter',relief='raised',overrelief='raised',width=11,padx=5,height=1,font=('Arial 12 bold'),bg=cor2,fg=cor0,activebackground=cor2,activeforeground=cor0)
 bnt_converter.place(x=70,y=250)
 
 bnt_grafico = Button(frame_de_baixo,command= '',text='Gráfico',relief='raised',overrelief='raised',width=11,padx=5,height=1,font=('Arial 12 bold'),bg=cor2,fg=cor0,activebackground=cor2,activeforeground=cor0)
