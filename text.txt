@@ -20,3 +20,6 @@ Image.Tk  é utilizado para integrar imagens do Pillow com a biblioteca Tkinter,
 
 Label (resultado): Mostra o valor convertido.
 Entry (valor): Permite ao usuário digitar o valor que deseja converter.
+
+
+
