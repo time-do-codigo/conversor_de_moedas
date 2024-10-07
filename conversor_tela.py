@@ -1,8 +1,11 @@
 from tkinter import *
 from tkinter import ttk
 from PIL import Image, ImageTk
+from PIL import Image, ImageTk
 import requests
 import json
+import matplotlib.pyplot as plt
+from datetime import datetime, timedelta
 import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
 from chave_api import API_KEY
@@ -160,4 +163,6 @@ bnt_grafico.place(x=210, y=250)
 
 # Inicializando a janela
 janela.mainloop()
+
+#temas = style.theme_names()
 

@@ -7,4 +7,5 @@ dist/
 build/
 # Ignore config
 chave_api.py
-
+#Pycache
+__pychache__
